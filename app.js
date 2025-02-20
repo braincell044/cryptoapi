@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const mongoose = require ('mongoose')
 const  express = require ('express')
 const cors = require('cors');
@@ -15,9 +17,29 @@ const auth = require('./middleware/auth'); // ✅ Correct relative path
 const walletAddressRoute = require('./routes/wallet'); // ✅ Correct relative path
 
 
-mongoose.connect('mongodb://localhost/cryptoapiDB')
-.then(() =>console.log('Connected to MongoDB...'))
-.catch(err => console.log('Could not connect to MongoDB...', err))
+// mongoose.connect('mongodb://localhost/cryptoapiDB')
+// .then(() =>console.log('Connected to MongoDB...'))
+// .catch(err => console.log('Could not connect to MongoDB...', err))
+
+
+
+
+// Connect to MongoDB Atlas
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => console.log('✅ MongoDB Connected'))
+.catch(err => console.error('❌ MongoDB Connection Error:', err));
+
+// Example route
+
+
+app.get('/', (req, res) => res.send('Hello, MongoDB Atlas!'));
+app.listen(process.env.PORT || 5050, () => 
+  console.log(`🚀 Server running on port ${process.env.PORT || 5000}`)
+);
+
 
 
 // middleware
@@ -34,6 +56,6 @@ app.use((err, req, res, next) => {
 
 
 
-const port = process.env.PORT || 4500
+// const port = process.env.PORT || 4500
 
-app.listen(port, () => console.log (`listening on port ${port}`))
+// app.listen(port, () => console.log (`listening on port ${port}`))
