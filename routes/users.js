@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
+
 const jwt = require('jsonwebtoken');
 const config = require('config'); // Make sure you have the config package installed: npm install config
 
