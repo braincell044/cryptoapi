@@ -36,8 +36,8 @@ mongoose.connect(process.env.MONGO_URI, {
 
 
 app.get('/', (req, res) => res.send('Hello, MongoDB Atlas!'));
-app.listen(process.env.PORT || 5050, () => 
-  console.log(`🚀 Server running on port ${process.env.PORT || 5000}`)
+app.listen(process.env.PORT || 53500, () => 
+  console.log(`🚀 Server running on port ${process.env.PORT || 53500}`)
 );
 
 
