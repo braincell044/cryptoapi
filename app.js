@@ -76,6 +76,25 @@ app.use((err, req, res, next) => {
 });
 
 
+app.use((req, res, next) => {
+  const allowedOrigins = ['https://cryptolite.vercel.app', 'http://localhost:3000'];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+  }
+
+  if (req.method === 'OPTIONS') {
+      return res.status(200).end();
+  }
+
+  next();
+});
+
+
 
 // const port = process.env.PORT || 4500
 
