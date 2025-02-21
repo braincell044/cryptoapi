@@ -9,7 +9,7 @@ const app = express()
 
 //Allow requests from specific origin (your frontend)
 
-app.use(cors({ origin: 'http://localhost:3001' }));
+app.use(cors({ origin: 'http://localhost:3000' }));
 
 const userRoute = require('./routes/users')
 
