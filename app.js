@@ -1,4 +1,5 @@
 require('dotenv').config();
+const config = require(`./config.${process.env.NODE_ENV || 'default'}.js`);
 
 const mongoose = require ('mongoose')
 const  express = require ('express')
@@ -36,9 +37,11 @@ mongoose.connect(process.env.MONGO_URI, {
 
 
 app.get('/', (req, res) => res.send('Hello, MongoDB Atlas!'));
-app.listen(process.env.PORT || 53500, () => 
-  console.log(`🚀 Server running on port ${process.env.PORT || 53500}`)
-);
+
+app.get('/', (req, res) => {
+  res.send('Server is running!');
+});
+
 
 
 
