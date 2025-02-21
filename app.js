@@ -7,13 +7,15 @@ const cors = require('cors');
 const app = express();
 
 // Allow requests from specific origins
+
 app.use(cors({
-  origin: ['https://cryptolite.vercel.app', 'http://localhost:3000'],
+  origin: ['http://localhost:3000', 'https://cryptolite.vercel.app'], // Add your frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
+app.options('*', cors()); 
 // Environment Variables
 const mongoURI = process.env.MONGO_URI;
 const jwtPrivateKey = process.env.JWT_SECRET;
