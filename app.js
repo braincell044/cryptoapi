@@ -1,5 +1,5 @@
 require('dotenv').config();
-const config = require(`./config.${process.env.NODE_ENV || 'default'}.js`);
+const config = require(`./config/config.${process.env.NODE_ENV || 'default'}.js`);
 
 const mongoose = require ('mongoose')
 const  express = require ('express')
@@ -33,7 +33,17 @@ mongoose.connect(process.env.MONGO_URI, {
 .then(() => console.log('✅ MongoDB Connected'))
 .catch(err => console.error('❌ MongoDB Connection Error:', err));
 
-// Example route
+const path = require('path');
+
+let configFilePath = `./config.${process.env.NODE_ENV || 'default'}.js`;
+
+try {
+  const config = require(configFilePath);
+} catch (err) {
+  console.error(`Could not load config file: ${configFilePath}. Falling back to default.`);
+  const config = require('./config/default.json'); // Make sure you have this default file
+}
+
 
 
 app.get('/', (req, res) => res.send('Hello, MongoDB Atlas!'));
