@@ -12,8 +12,9 @@ const app = express()
 
 
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://cryptolite.vercel.app'],
+  origin: ['https://cryptolite.vercel.app', 'http://localhost:3000'], // Allow both production and local dev
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type'],
   credentials: true
 }));
 
