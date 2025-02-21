@@ -9,7 +9,14 @@ const app = express()
 
 //Allow requests from specific origin (your frontend)
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+
+
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://cryptolite.vercel.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 
 const userRoute = require('./routes/users')
 
