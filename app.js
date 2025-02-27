@@ -43,18 +43,20 @@ app.use(express.json());
 import authRoute from './routes/auth.js';
 import walletAddressRoute from './routes/wallet.js';
 import depositRoutes from './routes/deposits.js';
-import userEmail from './routes/user.js';
+// import userEmail from './routes/user.js';
 import adminRoutes from './routes/admin.js';
 import { authenticateAdmin } from './middleware/auth.js';
 // import emailRoute from './routes/emailRoute.js'
-
+import userRoute from './routes/users.js'
 
 app.use('/api', adminRoutes);
-app.use('/api/user', userEmail);
+// app.use('/api/user', userEmail);
 app.use('/api/wallet', walletAddressRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/deposit', depositRoutes);
+app.use('/api/user', userRoute)
 // app.use('/api', emailRoute)
+
 
 
 
