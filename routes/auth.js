@@ -1,10 +1,11 @@
-const express = require('express');
+import express from 'express';
+import Joi from 'joi';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { User } from '../model/user.js';
+import { authenticateToken } from '../middleware/auth.js';
+
 const router = express.Router();
-const Joi = require('joi');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { User } = require('../model/user');
-const authenticateToken = require("../middleware/auth");
 
 router.post('/', async (req, res) => {
     const { error } = validate(req.body);
@@ -43,27 +44,6 @@ router.get("/profile", authenticateToken, async (req, res) => {
     }
 });
 
-router.post('/deposit', authenticateToken, async (req, res) => {
-    const { amount, plan } = req.body;
-
-    if (!amount || amount <= 0) {
-        return res.status(400).json({ message: "Invalid deposit amount." });
-    }
-
-    try {
-        const user = await User.findById(req.user._id);
-        if (!user) return res.status(404).json({ message: "User not found." });
-
-        user.balance += amount;
-        await user.save();
-
-        res.json({ message: "Deposit successful!", newBalance: user.balance, plan });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: "Server error." });
-    }
-});
-
 function validate(req) {
     const schema = Joi.object({
         email: Joi.string().min(5).max(255).required().email(),
@@ -73,4 +53,4 @@ function validate(req) {
     return schema.validate(req);
 }
 
-module.exports = router;
+export default router;

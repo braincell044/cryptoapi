@@ -1,21 +1,24 @@
+import 'dotenv/config';
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
 
-require('dotenv').config();
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const app = express();
 
 // Allow requests from specific origins
-
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://cryptolite.vercel.app'], // Add your frontend URL
+  origin: ['http://localhost:3000', 'https://cryptolite.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
 }));
 
 app.options('*', cors()); 
+
 // Environment Variables
 const mongoURI = process.env.MONGO_URI;
 const jwtPrivateKey = process.env.JWT_SECRET;
@@ -36,20 +39,31 @@ mongoose.connect(mongoURI)
 app.use(express.json());
 
 // Routes
-const userRoute = require('./routes/users');
-const authRoute = require('./routes/auth');
-const walletAddressRoute = require('./routes/wallet');
 
-app.use('/api/user', userRoute);
+import authRoute from './routes/auth.js';
+import walletAddressRoute from './routes/wallet.js';
+import depositRoutes from './routes/deposits.js';
+import userEmail from './routes/user.js';
+import adminRoutes from './routes/admin.js';
+import { authenticateAdmin } from './middleware/auth.js';
+// import emailRoute from './routes/emailRoute.js'
+
+
+app.use('/api', adminRoutes);
+app.use('/api/user', userEmail);
 app.use('/api/wallet', walletAddressRoute);
 app.use('/api/auth', authRoute);
+app.use('/api/deposit', depositRoutes);
+// app.use('/api', emailRoute)
+
+
+
+app.get('/api/deposit/admin/deposit', authenticateAdmin, (req, res) => {
+  res.json({ message: 'Authorized access' });
+});
 
 // Root Route
 app.get('/', (req, res) => res.send('Server is running!'));
 
 // Start Server
 app.listen(port, () => console.log(`🚀 Server listening on port ${port}`));
-
-// Debugging Logs
-// console.log(`✅ Running in ${process.env.NODE_ENV} mode`);
-// console.log(`🔍 Loaded Config from .env: { mongoURI: "${mongoURI}", jwtPrivateKey: "${jwtPrivateKey}" }`);

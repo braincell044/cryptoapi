@@ -1,0 +1,45 @@
+### Test Deposit with Bearer Token
+POST http://localhost:3001/api/deposit/deposit
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2I4MTQ1YTI0M2U4NWFhY2QzMmE4NWEiLCJpYXQiOjE3NDAyNTQzMzYsImV4cCI6MTc0MDI1NzkzNn0.Ro37Cfm9_YCzZ4YznX6cr9SYiCj-H5kfQr_JhgVOhCc
+
+{
+    "amount": 1500,
+    "plan": "Basic"
+}
+
+### Test Admin Get Pending Deposits
+GET http://localhost:3001/api/deposit/admin/deposit
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2JhNGQyNDFkZmU3MWFjMTJiNmY4MDYiLCJuYW1lIjoiQ2hhcmxsb3R0ZSBEYXZpcyIsImVtYWlsIjoiY2hhcmxvdHRlZGF2aXM1NjcxQGdtYWltLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0MDI2MjY5Mn0.AQMA7jltBSdEO3d7FX2mvPxSflOxPSNWJ5CHFLNpOzQ
+
+### Test Admin Approve Deposit
+POST http://localhost:3001/api/deposit/admin/deposit/67ba6394c3526204d5b1b697/approve
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2JhNGQyNDFkZmU3MWFjMTJiNmY4MDYiLCJuYW1lIjoiQ2hhcmxsb3R0ZSBEYXZpcyIsImVtYWlsIjoiY2hhcmxvdHRlZGF2aXM1NjcxQGdtYWltLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0MDI2MjY5Mn0.AQMA7jltBSdEO3d7FX2mvPxSflOxPSNWJ5CHFLNpOzQ
+
+### Test Admin Reject Deposit
+POST http://localhost:3001/api/deposit/admin/deposit/67ba381a20b038a6ec0df396/reject
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2JhNGQyNDFkZmU3MWFjMTJiNmY4MDYiLCJuYW1lIjoiQ2hhcmxsb3R0ZSBEYXZpcyIsImVtYWlsIjoiY2hhcmxvdHRlZGF2aXM1NjcxQGdtYWltLmNvbSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc0MDI2MjY5Mn0.AQMA7jltBSdEO3d7FX2mvPxSflOxPSNWJ5CHFLNpOzQ
+
+### Test User Login
+POST http://localhost:3001/api/auth
+Content-Type: application/json
+
+{
+    "email": "ugochukwumeshach8@gmail.com",
+    "password": "Myname"
+}
+
+
+### Test Admin Regsiter
+
+POST http://localhost:3001/api/user
+Content-Type: application/json
+
+{
+    "name": "Charllotte Davis",
+    "email": "charlottedavis5671@gmaim.com",
+    "password": "Askme@5671"
+}

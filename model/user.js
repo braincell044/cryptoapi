@@ -1,5 +1,5 @@
-const Joi = require('joi');
-const mongoose = require('mongoose');
+import Joi from 'joi';
+import mongoose from 'mongoose';
 
 // User model
 const User = mongoose.model('User', new mongoose.Schema({
@@ -8,7 +8,7 @@ const User = mongoose.model('User', new mongoose.Schema({
     password: { type: String, required: true, minlength: 5, maxlength: 1024 },
     balance: { type: Number, default: 0 },
     isAdmin: { type: Boolean, default: false },
-    signupDate: { type: Date, default: Date.now },
+    signupDate: { type: Date, default: Date.now }
 }));
 
 // User validation
@@ -17,12 +17,12 @@ function validateUser(user) {
         name: Joi.string().min(3).max(50).required(),
         email: Joi.string().min(5).max(255).required().email(),
         password: Joi.string().min(5).max(1024).required(),
-        balance: { type: Number, default: 0 },
-        isAdmin: { type: Boolean, default: false },
-        signupDate: { type: Date, default: Date.now },
+        balance: Joi.number().default(0),
+        isAdmin: Joi.boolean().default(false),
+        signupDate: Joi.date().default(() => new Date())
     });
     return schema.validate(user);
 }
 
 // Export both User and validateUser
-module.exports = { User, validateUser };
+export { User, validateUser };

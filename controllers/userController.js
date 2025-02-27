@@ -1,4 +1,4 @@
-const User = require("../model/user");
+import { User } from "../model/user.js";
 
 // Get user details
 const getUserDetails = async (req, res) => {
@@ -12,4 +12,4 @@ const getUserDetails = async (req, res) => {
   }
 };
 
-module.exports = { getUserDetails };
+export { getUserDetails };
